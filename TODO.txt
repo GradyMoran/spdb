@@ -1,0 +1,5 @@
+- error handling
+- add a way to print the portfolio once a weekday from cron
+- fix formatting on printout table, and sort output
+- colored text? emojis?
+- better way to control portfolio other than config file on server
