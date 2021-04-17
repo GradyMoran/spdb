@@ -1,3 +1,5 @@
+This is a discord bot to track the performance of a set of stocks. Early WIP
+
 Installation instructions:
 apt install python3-venv
 python3 -m venv env
