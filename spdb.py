@@ -32,12 +32,18 @@ def prices_printout():
     for symbol in original_prices:
         current_prices[symbol] = yfinance.Ticker(symbol).info['regularMarketPrice']
 
-    return_lines = ["\nSymbol:\tStarting:\tCurrent:\tChange:"]
+    return_lines = ["Symbol:\tCurrent:\tStarting:\tChange:"]
+    print_rows = []
     for symbol in original_prices:
-        return_lines.append(symbol + "\t" + 
-                            "$" + str(original_prices[symbol]) + "\t" + 
-                            "$" + str(current_prices[symbol]) + "\t" +
-                            '%.3f' % (((current_prices[symbol] - original_prices[symbol])/original_prices[symbol])*100) + "%")
-    return '\n'.join(return_lines)
+        cp = current_prices[symbol]
+        op = original_prices[symbol]
+        print_rows.append((symbol, cp, op, ((cp - op)/op)*100))
+    print_rows = sorted(print_rows, key=lambda x: -1*x[3])
+    for (symbol, cp, op, change) in print_rows:
+        return_lines.append(symbol + 
+                            (' '*(11-len(symbol))) + "$" + '%.2f' % cp + 
+                            (' '*(11-len('%.2f' % cp))) + "$" + '%.2f' % op +
+                            (' '*(12-len('%.2f' % op))) + (" " if cp > op else "") + '%.2f' % change + "%")
+    return "```\n" + '\n'.join(return_lines) + "```"
 
 client.run(DISCORD_TOKEN)
