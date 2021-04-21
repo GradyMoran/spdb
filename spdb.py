@@ -43,7 +43,7 @@ def prices_printout():
         return_lines.append(symbol + 
                             (' '*(11-len(symbol))) + "$" + '%.2f' % cp + 
                             (' '*(11-len('%.2f' % cp))) + "$" + '%.2f' % op +
-                            (' '*(12-len('%.2f' % op))) + (" " if cp > op else "") + '%.2f' % change + "%")
+                            (' '*(11-len('%.2f' % op))) + (" " if cp > op else "") + '%.2f' % change + "%")
     return "```\n" + '\n'.join(return_lines) + "```"
 
 client.run(DISCORD_TOKEN)
