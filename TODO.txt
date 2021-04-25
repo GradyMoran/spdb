@@ -1,5 +1,22 @@
 - error handling
-- add a way to print the portfolio once a weekday from cron
+
+- fix the following runtime error that prints when you send SIGUSR1:
+Exception in callback sigusr1_handler(<_UnixSelecto...e debug=False>)() at spdb.py:29
+handle: <Handle sigusr1_handler(<_UnixSelecto...e debug=False>)() at spdb.py:29>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/asyncio/events.py", line 145, in _run
+    self._callback(*self._args)
+  File "spdb.py", line 30, in sigusr1_handler
+    asyncio.get_event_loop().run_until_complete(client.get_channel(SIGNAL_PRINT_CHANNEL).send(prices_printout()))
+  File "/usr/lib/python3.6/asyncio/base_events.py", line 471, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.6/asyncio/base_events.py", line 425, in run_forever
+    raise RuntimeError('This event loop is already running')
+RuntimeError: This event loop is already running
+
 - cache results so it doesn't take ~30 seconds to return from on-demand +portfolio
+
 - colored text? emojis?
+
 - better way to control portfolio other than config file on server
+
