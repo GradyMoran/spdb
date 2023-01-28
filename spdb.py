@@ -13,7 +13,9 @@ load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 SIGNAL_PRINT_CHANNEL = int(os.getenv("SIGNAL_PRINT_CHANNEL"))
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
@@ -38,7 +40,7 @@ def prices_printout():
         original_prices[line.split(',')[0]] = float(line.split(',')[1])
     current_prices = {}
     for symbol in original_prices:
-        current_prices[symbol] = yfinance.Ticker(symbol).info['regularMarketPrice']
+        current_prices[symbol] = yfinance.Ticker(symbol).fast_info['last_price']
 
     return_lines = ["Symbol:    Current:    Starting:    Change:"]
     print_rows = []
